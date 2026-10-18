@@ -1,0 +1,160 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --nova-accent: #8b5cf6;
+  --nova-bg: #0A0B10;
+}
+
+/* ─── Base ─────────────────────────────────────────────────────────────── */
+
+body {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  overflow: hidden;
+  user-select: none;
+  font-family: 'Segoe UI Variable Display', 'Segoe UI', Inter, system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── GPU Compositing Layer ────────────────────────────────────────────── */
+
+.gpu-layer {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: width, height, transform, opacity;
+}
+
+/* ─── Dynamic Island Morph Animation ───────────────────────────────────── */
+
+.island-transition {
+  transition-property: width, height, border-radius, box-shadow, opacity;
+  transition-duration: 320ms;
+  transition-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.island-content-enter {
+  animation: islandFadeIn 280ms cubic-bezier(0.32, 0.72, 0, 1) forwards;
+}
+
+@keyframes islandFadeIn {
+  from { opacity: 0; transform: translateY(-6px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.island-content-exit {
+  animation: islandFadeOut 160ms ease-out forwards;
+}
+
+@keyframes islandFadeOut {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(0.97); }
+}
+
+/* ─── Coin Ticker Pulse ────────────────────────────────────────────────── */
+
+@keyframes tickerPulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.6; }
+}
+
+.ticker-loading {
+  animation: tickerPulse 1.4s ease-in-out infinite;
+}
+
+/* Price flash on change */
+@keyframes priceFlashGreen {
+  0%   { background-color: rgba(52, 211, 153, 0.25); }
+  100% { background-color: transparent; }
+}
+@keyframes priceFlashRed {
+  0%   { background-color: rgba(248, 113, 113, 0.25); }
+  100% { background-color: transparent; }
+}
+
+.price-flash-up   { animation: priceFlashGreen 600ms ease-out; }
+.price-flash-down { animation: priceFlashRed 600ms ease-out; }
+
+/* ─── Live Dot ─────────────────────────────────────────────────────────── */
+
+@keyframes liveDot {
+  0%, 100% { opacity: 1; box-shadow: 0 0 6px currentColor; }
+  50%      { opacity: 0.4; box-shadow: 0 0 2px currentColor; }
+}
+
+.live-dot {
+  animation: liveDot 2s ease-in-out infinite;
+}
+
+/* ─── Custom Scrollbar ─────────────────────────────────────────────────── */
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.10);
+  border-radius: 9999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+/* ─── Accent Glow Utility ──────────────────────────────────────────────── */
+
+.glow-accent {
+  box-shadow: 0 0 18px -4px var(--nova-accent);
+}
+
+/* ─── Smooth Range Input ───────────────────────────────────────────────── */
+
+input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  outline: none;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--nova-accent, #8b5cf6);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(139, 92, 246, 0.5);
+  transition: transform 150ms ease;
+}
+
+input[type='range']::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+/* ─── Equalizer Bars (Media Module) ────────────────────────────────────── */
+
+@keyframes eq-dance-1 { 0%,100% { height: 4px; } 50% { height: 14px; } }
+@keyframes eq-dance-2 { 0%,100% { height: 14px; } 50% { height: 6px; } }
+@keyframes eq-dance-3 { 0%,100% { height: 7px; } 50% { height: 16px; } }
+@keyframes eq-dance-4 { 0%,100% { height: 12px; } 50% { height: 5px; } }
+
+.animate-eq-1 { animation: eq-dance-1 0.85s ease-in-out infinite; }
+.animate-eq-2 { animation: eq-dance-2 0.75s ease-in-out infinite; }
+.animate-eq-3 { animation: eq-dance-3 0.95s ease-in-out infinite; }
+.animate-eq-4 { animation: eq-dance-4 0.80s ease-in-out infinite; }
+
+/* ─── Select Dropdown Styling ──────────────────────────────────────────── */
+
+select option {
+  background: #131722;
+  color: #e2e8f0;
+}
