@@ -46,12 +46,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.ExperimentalFoundationApi
 import com.example.mylauncher.data.AppModel
 import com.example.mylauncher.theme.DeepIndigoBg
 import com.example.mylauncher.theme.TextPrimary
 import com.example.mylauncher.util.glassmorphic
 import com.example.mylauncher.util.springPressScale
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel,
